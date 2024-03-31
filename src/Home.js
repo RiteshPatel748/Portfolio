@@ -8,7 +8,7 @@ import { firebaseConfig } from './firebaseConfig';
 
 const Home = () => {
 
-  const [theme, setTheme] = useState('black');
+  const [theme, setTheme] = useState('blue');
   const [skills, setSkills] = useState([]);
   const [links, setLinks] = useState([]);
   const [project, setProject] = useState([]);
@@ -74,6 +74,8 @@ useEffect(()=>{
   getInfo(db);
   getLinks(db);
   getCertifications(db);
+  let data=localStorage.getItem('theme')
+  handleThemeChange(data)
 },[])
 
 const handleSubmit = (event) => {
@@ -85,22 +87,20 @@ const handleSubmit = (event) => {
 
 const handleThemeChange = (mode) => {
   setTheme(mode)
-    if(mode == 'purple'){
+  if(mode == 'purple'){
 		document.getElementById('theme-style').href = 'purple.css'
 	}
 	if(mode == 'light'){
 		document.getElementById('theme-style').href = 'blue.css'
 	}
-
 	if(mode == 'blue'){
 		document.getElementById('theme-style').href = 'default.css'
 	}
-
 	if(mode == 'green'){
 		document.getElementById('theme-style').href = 'green.css'
 	}
 	localStorage.setItem('theme', mode)
-    console.log(document.getElementById('theme-style').href)
+  console.log(document.getElementById('theme-style').href)
   };
 
   return (
@@ -189,15 +189,17 @@ const handleThemeChange = (mode) => {
             <div className="row">
               <div className="col-12">
                 <h3 className="text-uppercase pb-4 pb-sm-5 mb-3 mb-sm-0 text-left text-sm-center custom-title ft-wt-600">
+                  <br/>
+                  <br/>
                   My Skills
                   <a name="skills" />
                 </h3>
               </div>
                {skills.map((data)=>{return(<div className="col-6 col-md-3 mb-3 mb-sm-5 h-30 w-30">
                   <img  className=" h-20 w-20" src={data.image}  width="50" height="50"/>
-                <h6 className="text-uppercase open-sans-font text-center mt-1 mt-sm-2">
+                <p className="text-center mt-1 mt-sm-2">
                   {data.name}
-                </h6>
+                </p>
               </div>)})}
             </div>
           </div>
@@ -314,11 +316,11 @@ const handleThemeChange = (mode) => {
     <section className="s2">
       <div className="main-container" style={{marginTop: '30px',justifyContent:'center',alignItems:'center'}}>
             <a name="certificates" />
-            <div  >
+            <div style={{textAlign:"left"}} >
                  <h3 className='text-uppercase text-sm-center ' style={{marginLeft: '30px', color: '#ffb400', paddingBottom: '20px'}}>
                     Certifications
                 </h3>
-                  {certifications.map(data=>{return(<p>●{data?.name} <a target="_blank" href={data?.url}>see</a><br /></p>)})}
+                  {certifications.map(data=>{return(<p>● {data?.name} <a target="_blank" href={data?.url}>see</a><br /></p>)})}
                   
             </div>
         </div>
@@ -330,12 +332,12 @@ const handleThemeChange = (mode) => {
       <div className="main-container">
         <h3 style={{textAlign: 'center', marginTop: '50px',marginBottom: '50px'}}>Some of my past projects</h3>
         <div className="post-wrapper">
-          {project.map(data=>{return(<div>
-            <div className="post">
-              <img className="thumbnail" src={data.image} />
-              <div className="post-preview">
-                <h6 className="post-title">{data.title}</h6>
-                <p className="post-intro">{data.discription}</p>
+          {project.map(data=>{return(<div >
+            <div className="post" >
+              <img className="thumbnail" style={{height:200}} src={data.image} />
+              <div className="post-preview" >
+                <h6 className="post-title" style={{textAlign:"left"}}>{data.title}</h6>
+                <p className="post-intro" style={{textAlign:"initial",}}>{data.discription}</p>
                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
                   {data.viewlink&&<a target="_blank" href={data?.viewlink}>{(data?.true)?'View':'Download'}</a> }
                   <a target="_blank" href={data.repolink}>See Repo</a> 
@@ -374,7 +376,7 @@ const handleThemeChange = (mode) => {
       <div className="main-container col-lg-6" style={{marginTop: '30px',}}>
         <a href />
         <h3 style={{textAlign: 'center'}}>Get In Touch</h3>
-        <form id="contact-form" onSubmit={handleSubmit}>
+        <form id="contact-form" onSubmit={handleSubmit} style={{textAlign:"left"}}>
           <a name="contact" />
           <label>Name</label>
           <input className="input-field" type="text" name="name" required 
